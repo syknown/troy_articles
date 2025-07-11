@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      TroyArticless | <%= typeof title !== 'undefined' ? title : 'Default Title' %>
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet" />
+    <link
+      href="/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css"
+    />
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>      
+        .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      padding: 5px 15px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .pagination button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+</style>
+
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+       <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+      <!-- Topbar -->
+      <nav class="navbar navbar-light bg-primary px-4 py-2 text-white">
+        <a class="navbar-brand text-white fw-bold" href="#">
+          <i class="fa fa-server me-2"></i>TroyArticless Panel
+        </a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark vh-100 text-white p-3">
+          <h5 class="text-white">Menu</h5>
+          <br />
+          <br />
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/templates/admin/list"
+                >📄 Templates</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/templates/admin/orders"
+                >💳 Orders List</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/templates/admin/payments"
+                >💳 Payments</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-10 p-4">
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <h2 class="mb-4 text-center">Available Themes</h2>
+              <% if (templates && templates.length > 0) { %>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th colspan="5" class="text-center">
+                        <h4>Templates</h4>
+                      </th>
+                      <th colspan="5" class="text-center">
+                        <h4><div class="d-flex justify-content-end mb-3">
+                          <a href="/templates/upload" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add Template
+                          </a>
+                        </div></h4>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th colspan="8" class="text-center">
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            id="searchInput"
+                            class="form-control"
+                            placeholder="Search by name or category..."
+                            onkeyup="filterTemplates()"
+                          />
+                        </div>
+                        
+                      </th>
+                      </tr>                   
+
+                    <tr>
+                      <th>#</th>
+                      <th>Thumbnail</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Category</th>
+                      <th>Cost (KES)</th>
+                      <th>Actions</th>                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% templates.forEach((template, index) => { %>
+                      <tr data-name="<%= template.name.toLowerCase() %>" data-category="<%= template.category.toLowerCase() %>">
+                      <td><%= index + 1 %></td>
+                      <td>
+                        <img
+                          src="<%= template.image %>"
+                          class="card-img-top"
+                          alt="<%= template.name %>"
+                          style="height: 30px; object-fit: cover"
+                        />
+                      </td>
+                      <td><%= template.name %></td>
+                      <td><%= template.description %></td>
+                      <td><%= template.category %></td>
+                      <td><%= template.cost %></td>                     
+                      <td>
+                        <a
+                          href="#"
+                          class="btn btn-warning btn-sm me-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editModal"
+                          data-template='<%- JSON.stringify(template).replace(/'/g, "&#39;") %>'
+                          onclick="populateEditFormFromElement(this)"
+                        >
+                          <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form
+                          action="/templates/delete/<%= template.id %>"
+                          method="POST"
+                          class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this template?');"
+                        >
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+                <div class="pagination">
+                  <button id="prevPage" onclick="changePage(-1)">Previous</button>
+                  <span id="pageNumber">Page 1</span>
+                  <button id="nextPage" onclick="changePage(1)">Next</button>
+                </div>
+              </div>
+              <% } else { %>
+                <thead class="table-light">
+                  <tr>
+                    <th colspan="7" class="text-center">
+                      <h4>Templates</h4>
+                    </th>
+                    <th colspan="7" class="text-center">
+                      <h4><div class="d-flex justify-content-end mb-3">
+                        <a href="/templates/upload" class="btn btn-success">
+                          <i class="fas fa-plus"></i> Add Template
+                        </a>
+                      </div></h4>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th colspan="8" class="text-center">
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          id="searchInput"
+                          class="form-control"
+                          placeholder="Search by name or category..."
+                          onkeyup="filterTemplates()"
+                        />
+                      </div>
+                      
+                    </th>
+                    </tr>                   
+
+                  <tr>
+                    <th>#</th>
+                    <th>Thumbnail</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Cost (KES)</th>
+                    <th>Actions</th>
+
+                    <th>Download</th>
+                  </tr>
+                </thead>
+              <p class="text-center text-muted">No templates uploaded yet.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Edit Modal -->
+      <div
+        class="modal fade"
+        id="editModal"
+        tabindex="-1"
+        aria-labelledby="editModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form id="editTemplateForm" method="POST">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Template</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="edit-id" />
+                <div class="mb-3">
+                  <label for="edit-name" style="color:black" class="form-label">Name</label>
+                  <p></p>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    id="edit-name"
+                     placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="edit-description" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="description"
+                    id="edit-description"
+                    placeholder="Enter your name"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="edit-category" class="form-label">Category</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="category"
+                    id="edit-category"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="edit-cost" class="form-label">Cost (KES)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="cost"
+                    id="edit-cost"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+  <script>
+  
+    function populateEditFormFromElement(el) {
+
+      const template = JSON.parse(el.getAttribute("data-template"));
+      populateEditForm(template);
+      console.log("template to be populated",template);
+    }
+  
+    function populateEditForm(template) {
+      document.getElementById("edit-id").value = template._id;
+      document.getElementById("edit-name").value = template.name;
+      document.getElementById("edit-description").value = template.description;
+      document.getElementById("edit-category").value = template.category;
+      document.getElementById("edit-cost").value = template.cost;
+      document.getElementById("editTemplateForm").action = `/templates/edit/${template.id}`;
+    }
+  </script>
+  <script>
+    function filterTemplates() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("tbody tr");
+  
+      rows.forEach(row => {
+        const name = row.getAttribute("data-name");
+        const category = row.getAttribute("data-category");
+        if (name.includes(input) || category.includes(input)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+  </script>
+  <script>
+  // Variables to track the current page and the number of rows per page
+  let currentPage = 1;
+  const rowsPerPage = 10;
+
+  function displayTablePage() {
+    const rows = document.querySelectorAll("tbody tr");
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    // Calculate the start and end indices of the rows for the current page
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    // Hide all rows
+    rows.forEach((row, index) => {
+      row.style.display = "none";  // Hide the row initially
+    });
+
+    // Show only the rows for the current page
+    for (let i = start; i < end; i++) {
+      if (rows[i]) rows[i].style.display = "";
+    }
+
+    // Update page number display
+    document.getElementById("pageNumber").innerText = `Page ${currentPage}`;
+
+    // Disable/enable Previous and Next buttons based on the current page
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages;
+  }
+
+  function changePage(direction) {
+    // Get total number of pages
+    const rows = document.querySelectorAll("tbody tr");
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+    // Update the current page
+    currentPage += direction;
+
+    // Ensure the page number stays within bounds
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    // Re-display the table for the new page
+    displayTablePage();
+  }
+
+  // Call displayTablePage on page load to display the first page
+  window.onload = displayTablePage;
+</script>
+
+  </body>
+
+    
+  
+  
+</html>
