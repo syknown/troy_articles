@@ -10,18 +10,18 @@ router.get("/", async (req, res) => {
   console.log("Article ID: ", articleId);
 
   if (!articleId) {
-    return res.status(400).send("No template ID provided.");
+    return res.status(400).send("No Article ID provided.");
   }
 
   // Fetch the template details from the database
-  const template = await Article.findByPk(articleId);
-  if (!template) {
+  const article = await Article.findByPk(articleId);
+  if (!article) {
     return res.status(404).send("Article not found.");
   }
 
   // Render cart page with template details
   res.render("cart", {
-    template,
+    article,
     hostingPlans: [
       { name: "Bronze", price: 2000 },
       { name: "Bronze Plus", price: 2500 },

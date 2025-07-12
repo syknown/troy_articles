@@ -12,8 +12,8 @@
       <div class="col-lg-6">
         <div class="card shadow p-4 mb-4">
           <h3 class="mb-3">Order Summary</h3>
-          <div id="templateDetails" class="mb-3"></div>
-          <div id="hostingDetails" class="mb-3"></div>
+          <div id="articleDetails" class="mb-3"></div>
+          <!-- <div id="hostingDetails" class="mb-3"></div> -->
           <h5 class="text-end">
             Total:
             <span id="totalPrice" class="text-primary fw-bold">KES 0</span>
@@ -98,70 +98,48 @@
   </div>
   ` }) %>
   <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const templateId = localStorage.getItem("selectedTemplate");
-      const templateName = localStorage.getItem("templateName");
-      const templatePrice = parseFloat(
-        localStorage.getItem("templatePrice") || 0
-      );
-      const hostingData = JSON.parse(
-        localStorage.getItem("selectedHostingPlan") || "{}"
-      );
-      const hostingName = hostingData.name || null;
-      const hostingPrice = parseFloat((hostingData.price));
-
-      console.log("Hosting price:", hostingPrice);
-      console.log("Template price:", templatePrice);
-
-      document.getElementById("templateIdInput").value = templateId;
-      document.getElementById("hostingIdInput").value = hostingData.id || "";
+       document.addEventListener("DOMContentLoaded", async () => {
+         const articleId = localStorage.getItem("selectedArticle");
+         const articleName = localStorage.getItem("articleName");
+         const articlePrice = parseFloat(
+           localStorage.getItem("articlePrice") || 0
+         );
+    try {
+           const res = await fetch(`/api/article/${articleId}`);
+           <!-- console.log(res.body); -->
+           const data = await res.json();
+           console.log(data);
+           const article = data.article;
+           console.log(article);
 
 
-      try {
-        const res = await fetch(`/api/template/${templateId}`);
-        <!-- console.log(res.body); -->
-        const template = await res.json();
-        console.log(template);
-        console.log(template.template);
-        const tDetails = template.template;
-        console.log(tDetails);
-
-        document.getElementById("templateDetails").innerHTML = `
-        <h5>Template: ${tDetails.name}</h5>
-        <img src="${tDetails.image}" class="img-fluid mb-2 rounded shadow-sm" style="height: 200px; width: auto;" />
-        <p>Description: ${tDetails.description}</p>
-        <p>Category: ${tDetails.category}</p>
-        <p><strong>Cost:</strong> KES ${tDetails.cost}</p>
-      `;
-        if (hostingName) {
-          document.getElementById("hostingDetails").innerHTML = `
-          <h5>Hosting: ${hostingName}</h5>
-          <p><strong>Cost:</strong> KES ${hostingPrice}</p>
-        `;
-        } else {
-          document.getElementById("hostingDetails").innerHTML = `
-          <h5>No hosting selected</h5>
-        `;
-        }
+           document.getElementById("articleDetails").innerHTML = `
+           <h5>${article.name}</h5>
+           <img src="${article.image}" class="img-fluid mb-2 rounded shadow-sm" style="height: 200px; width: auto;" />
+           <br>
+           <p>Description: ${article.description}</p>
+           <p>Category: ${article.category}</p>
+           <p><strong>Cost:</strong> KES ${article.cost}</p>
+         `;
 
 
-        const total = templatePrice + hostingPrice;
-        document.getElementById("totalPrice").textContent =
-          "KES " + total.toFixed(2);
-      } catch (error) {
-        console.error("Failed to load template:", error);
-        alert("Failed to load template details.");
-      }
-    });
 
-    function setTotalPriceBeforeSubmit() {
-      const totalPriceElement = document.getElementById("totalPrice");
-      const totalPrice = totalPriceElement.textContent.replace("KES", "").trim();
-      const selectedPlan = localStorage.getItem("selectedHostingPlan");
-      console.log("Selected plan:", selectedPlan);
-      document.getElementById("hostingIdInputJson").value = selectedPlan;
-      document.getElementById("totalPriceInput").value = totalPrice;
-      return true; // allow form to submit
-    }
+           const total = articlePrice;
+           document.getElementById("totalPrice").textContent =
+             "KES " + total.toFixed(2);
+         } catch (error) {
+           console.error("Failed to load template:", error);
+           alert("Failed to load template details.");
+         }
+       });
+
+       function setTotalPriceBeforeSubmit() {
+         const totalPriceElement = document.getElementById("totalPrice");
+         const totalPrice = totalPriceElement.textContent.replace("KES", "").trim();
+
+
+         document.getElementById("totalPriceInput").value = totalPrice;
+         return true; // allow form to submit
+       }
   </script>
 </div>

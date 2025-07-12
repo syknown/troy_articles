@@ -45,12 +45,12 @@ router.get("/", async (req, res) => {
       filters.category = category;
     }
 
-    const templates = await Article.findAll({ where: filters });
-    console.log("Templates: ", templates);
+    const articles = await Article.findAll({ where: filters });
+    console.log("Templates: ", articles);
 
-    res.render("index", { templates });
+    res.render("index", { articles });
   } catch (error) {
-    console.error("Error fetching templates:", error);
+    console.error("Error fetching articles:", error);
     res.status(500).send("Server Error");
   }
 });
@@ -61,13 +61,13 @@ router.use(
   express.static(path.join(__dirname, "../public/themes"))
 );
 
-router.get("/api/template/:id", async (req, res) => {
+router.get("/api/article/:id", async (req, res) => {
   const { id } = req.params;
   console.log("ID: ", id);
-  const template = await Article.findByPk(id);
-  if (!template) return res.status(404).send("Article not found");
+  const article = await Article.findByPk(id);
+  if (!article) return res.status(404).send("Article not found");
 
-  res.json({ template: template });
+  res.json({ article: article });
 });
 
 router.get("/preview/:id/:templateName/*", async (req, res, next) => {
@@ -96,11 +96,11 @@ router.get("/preview/:id/:templateName/*", async (req, res, next) => {
 
 router.get("/preview/:id", async (req, res) => {
   const { id } = req.params;
-  const template = await Article.findByPk(id);
-  console.log("Article: ", template);
-  if (!template) return res.status(404).send("Article not found");
+  const article = await Article.findByPk(id);
+  console.log("Article: ", article);
+  if (!article) return res.status(404).send("Article not found");
 
-  res.render("preview", { template: template });
+  res.render("preview", { article: article });
 });
 router.get("/login", async (req, res) => {
   res.render("login", { template: null });

@@ -2,13 +2,13 @@
 <!-- Hero Start -->
 <div class="container-fluid bg-primary py-5 hero-header mb-5">
   <div class="container mt-5">
-    <h2 class="mb-4">Template Details</h2>
+    <h2 class="mb-4">Article Details</h2>
   </div>
 </div>
 <div class="container-xxl domain mb-5">
   <div class="container-xxl py-5" id="purchase-form">
     <div class="container px-lg-5">
-      <h1 class="mb-3">${template.name}</h1>
+      <h1 class="mb-3">${article.name}</h1>
       <div class="row g-5">
         <div class="col-lg-7 col-md-6">
           <div class="wow fadeInUp" data-wow-delay="0.2s">
@@ -17,8 +17,8 @@
                 <div class="col-12">
                   <div class="form-floating">
                     <img
-                      src="${template.image}"
-                      alt="${template.description}"
+                      src="${article.image}"
+                      alt="${article.description}"
                       class="img-fluid mb-3"
                     />
                   </div>
@@ -30,11 +30,11 @@
         <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
           <div class="section-title position-relative mx-auto mb-4 pb-4">
             <hr />
-            <h3 class="fw-bold mb-0">Template Details</h3>
-            <p><strong>Description:</strong> ${template.description}</p>
-            <p><strong>Category:</strong> ${template.category}</p>
-            <p><strong>Downloads:</strong> ${template.downloads}</p>
-            <p><strong>Price:</strong> ${template.cost}</p>
+            <h3 class="fw-bold mb-0">Article Details</h3>
+            <p><strong>Description:</strong> ${article.description}</p>
+            <p><strong>Category:</strong> ${article.category}</p>
+            <p><strong>Downloads:</strong> ${article.downloads}</p>
+            <p><strong>Price:</strong> ${article.cost}</p>
           </div>
           <hr />
           <div class="section-title position-relative mx-auto mb-4 pb-4">
@@ -56,7 +56,7 @@
             <a
               class="btn btn-primary py-3 px-5"
               href="#"
-              onclick="promptHosting('${template.id}', '${template.name}', '${template.cost}')"
+              onclick="promptHosting('${article.id}', '${article.name}', '${article.cost}')"
             >
               Proceed To Checkout
             </a>
@@ -76,7 +76,7 @@
         <div class="modal-content p-4">
           <div class="modal-header">
             <h5 class="modal-title" id="hostingModalLabel">
-              Do you need Hosting and Domain?
+              Kindly confirm before puchase
             </h5>
             <button
               type="button"
@@ -86,17 +86,10 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p>Select a hosting plan below or proceed without hosting.</p>
-            <div id="hostingPlans" class="row"></div>
+            <div id="selectedArticle" class="row"></div>
             <div class="mt-4 d-flex justify-content-end">
-              <button
-                class="btn btn-secondary me-2"
-                onclick="continueWithoutHosting()"
-              >
-                Skip Hosting
-              </button>
-              <button class="btn btn-primary" onclick="proceedWithHosting()">
-                Continue With Hosting
+              <button class="btn btn-primary" onclick="proceedWithPurchase()">
+                Continue
               </button>
             </div>
           </div>
@@ -109,68 +102,37 @@
   <!-- Hero End -->
   ` }) %>
   <script>
-    let selectedTemplateId = "";
-    let selectedTemplateName = "";
-    let selectedTemplatePrice = "";
+    let selectedArticleId = "";
+    let selectedArticleName = "";
+    let selectedArticlePrice = "";
 
-    function promptHosting(templateId, name, cost) {
-      selectedTemplateId = templateId;
-      selectedTemplateName = name;
-      selectedTemplatePrice = cost;
+    function promptHosting(articleId, name, cost) {
+      selectedArticleId = articleId;
+      selectedArticleName = name;
+      selectedArticlePrice = cost;
+      const hostingContainer = document.getElementById("selectedArticle");
 
-      // Fetch hosting plans
-      fetch("https://troyhost.troycityafrica.com/api/hosting")
-        .then((response) => response.json())
-        .then((data) => {
-          const hostingContainer = document.getElementById("hostingPlans");
-          hostingContainer.innerHTML = "";
-          data.forEach((plan) => {
-            hostingContainer.innerHTML += `
+      hostingContainer.innerHTML = "";
+
+      hostingContainer.innerHTML += `
               <div class="col-md-6 mb-3">
                 <div class="card h-100">
                   <div class="card-body">
-                    <h5 class="card-title">${plan.name}</h5>
-                    <p>${plan.description || ""}</p>
-                    <p><strong>KES ${plan.price}</strong></p>
-                    <input type="radio" name="selectedHosting" value='${JSON.stringify(
-                      plan
-                    )}' />
-                  </div>
+                    <h5 class="card-title">Purchase Confirmation</h5>
+                    <p>${name || ""}</p>
+                    <p><strong>KES ${cost}</strong></p></div>
                 </div>
               </div>
             `;
-          });
-          // Show modal
-          new bootstrap.Modal(document.getElementById("hostingModal")).show();
-        })
-        .catch((err) => {
-          console.error("Failed to fetch hosting plans", err);
-          alert("Failed to load hosting plans");
-        });
+      new bootstrap.Modal(document.getElementById("hostingModal")).show();
     }
 
-    function continueWithoutHosting() {
-      localStorage.setItem("selectedTemplate", selectedTemplateId);
-      localStorage.setItem("templateName", selectedTemplateName);
-      localStorage.setItem("templatePrice", selectedTemplatePrice);
-      window.location.href = `/checkout?templateId=${selectedTemplateId}`;
-    }
+    function proceedWithPurchase() {
+      localStorage.setItem("selectedArticle", selectedArticleId);
+      localStorage.setItem("articleName", selectedArticleName);
+      localStorage.setItem("articlePrice", selectedArticlePrice);
 
-    function proceedWithHosting() {
-      const selectedHostingInput = document.querySelector(
-        'input[name="selectedHosting"]:checked'
-      );
-      if (!selectedHostingInput) {
-        alert("Please select a hosting plan or skip.");
-        return;
-      }
-
-      const hostingPlan = JSON.parse(selectedHostingInput.value);
-      localStorage.setItem("selectedTemplate", selectedTemplateId);
-      localStorage.setItem("templateName", selectedTemplateName);
-      localStorage.setItem("templatePrice", selectedTemplatePrice);
-      localStorage.setItem("selectedHostingPlan", JSON.stringify(hostingPlan));    
-      window.location.href = `/checkout?templateId=${selectedTemplateId}&hostingId=${hostingPlan.id}`;
+      window.location.href = `/checkout?articleId=${selectedArticleId}`;
     }
   </script>
 </div>

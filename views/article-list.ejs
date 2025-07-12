@@ -109,17 +109,17 @@
           <br />
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link text-white" href="/templates/admin/list"
+              <a class="nav-link text-white" href="/articles/admin/list"
                 >📄 Templates</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/templates/admin/orders"
+              <a class="nav-link text-white" href="/articles/admin/orders"
                 >💳 Orders List</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/templates/admin/payments"
+              <a class="nav-link text-white" href="/articles/admin/payments"
                 >💳 Payments</a
               >
             </li>
@@ -130,18 +130,18 @@
           <div class="container py-5">
             <div class="row justify-content-center">
               <h2 class="mb-4 text-center">Available Themes</h2>
-              <% if (templates && templates.length > 0) { %>
+              <% if (articles && articles.length > 0) { %>
               <div class="table-responsive">
                 <table class="table table-striped table-bordered align-middle">
                   <thead class="table-light">
                     <tr>
                       <th colspan="5" class="text-center">
-                        <h4>Templates</h4>
+                        <h4>TroyArticles</h4>
                       </th>
                       <th colspan="5" class="text-center">
                         <h4><div class="d-flex justify-content-end mb-3">
-                          <a href="/templates/upload" class="btn btn-success">
-                            <i class="fas fa-plus"></i> Add Template
+                          <a href="/articles/upload" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add Article
                           </a>
                         </div></h4>
                       </th>
@@ -172,7 +172,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% templates.forEach((template, index) => { %>
+                    <% articles.forEach((template, index) => { %>
                       <tr data-name="<%= template.name.toLowerCase() %>" data-category="<%= template.category.toLowerCase() %>">
                       <td><%= index + 1 %></td>
                       <td>
@@ -199,7 +199,7 @@
                           <i class="fas fa-edit"></i> Edit
                         </a>
                         <form
-                          action="/templates/delete/<%= template.id %>"
+                          action="/articles/delete/<%= template.id %>"
                           method="POST"
                           class="d-inline"
                           onsubmit="return confirm('Are you sure you want to delete this template?');"
@@ -227,7 +227,7 @@
                     </th>
                     <th colspan="7" class="text-center">
                       <h4><div class="d-flex justify-content-end mb-3">
-                        <a href="/templates/upload" class="btn btn-success">
+                        <a href="/articles/upload" class="btn btn-success">
                           <i class="fas fa-plus"></i> Add Template
                         </a>
                       </div></h4>
@@ -260,7 +260,7 @@
                     <th>Download</th>
                   </tr>
                 </thead>
-              <p class="text-center text-muted">No templates uploaded yet.</p>
+              <p class="text-center text-muted">No articles uploaded yet.</p>
               <% } %>
             </div>
           </div>
@@ -372,7 +372,7 @@
       document.getElementById("edit-description").value = template.description;
       document.getElementById("edit-category").value = template.category;
       document.getElementById("edit-cost").value = template.cost;
-      document.getElementById("editTemplateForm").action = `/templates/edit/${template.id}`;
+      document.getElementById("editTemplateForm").action = `/articles/edit/${template.id}`;
     }
   </script>
   <script>

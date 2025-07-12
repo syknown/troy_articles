@@ -27,3 +27,135 @@
 2025-07-11T11:23:32.149Z [INFO]: Server running on http://localhost:5001
 2025-07-11T11:23:54.535Z [INFO]: Server running on http://localhost:5001
 2025-07-11T11:24:08.203Z [INFO]: Server running on http://localhost:5001
+2025-07-11T11:33:27.374Z [ERROR]: GET /articles/admin/list - Failed to lookup view "article-list" in views directory "/Users/collinskandie/Development/Syknown/troycity/troyarticles/views"
+2025-07-11T11:34:32.564Z [ERROR]: GET /articles/admin/list - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/article-list.ejs:133
+    131|             <div class="row justify-content-center">
+    132|               <h2 class="mb-4 text-center">Available Themes</h2>
+ >> 133|               <% if (templates && templates.length > 0) { %>
+    134|               <div class="table-responsive">
+    135|                 <table class="table table-striped table-bordered align-middle">
+    136|                   <thead class="table-light">
+
+templates is not defined
+2025-07-11T11:34:36.175Z [ERROR]: GET /articles/admin/list - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/article-list.ejs:133
+    131|             <div class="row justify-content-center">
+    132|               <h2 class="mb-4 text-center">Available Themes</h2>
+ >> 133|               <% if (templates && templates.length > 0) { %>
+    134|               <div class="table-responsive">
+    135|                 <table class="table table-striped table-bordered align-middle">
+    136|                   <thead class="table-light">
+
+templates is not defined
+2025-07-11T11:35:50.548Z [ERROR]: GET /articles/upload - Failed to lookup view "upload-article" in views directory "/Users/collinskandie/Development/Syknown/troycity/troyarticles/views"
+2025-07-11T11:37:25.452Z [ERROR]: GET /articles/upload - Failed to lookup view "upload-article" in views directory "/Users/collinskandie/Development/Syknown/troycity/troyarticles/views"
+2025-07-11T11:52:20.880Z [INFO]: Server running on http://localhost:5001
+2025-07-11T11:54:33.491Z [ERROR]: GET /?name=&category=BEAUTY+%26+HAIR - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/index.ejs:85
+    83| <!-- Inject template data -->
+    84| <script>
+ >> 85|   const articles = <%- JSON.stringify(articles).replace(/</g, '\\u003c') %>;
+    86|   console.log(articles);
+    87| </script>
+    88| 
+
+articles is not defined
+2025-07-11T11:55:17.014Z [INFO]: Server running on http://localhost:5001
+2025-07-11T13:57:04.280Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:30:22.827Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:36:18.849Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:36:22.261Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:36:34.348Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:37:21.224Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:37:37.071Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:37:43.288Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:37:50.688Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:37:51.874Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:38:00.545Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:38:04.115Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:41:38.900Z [ERROR]: GET /preview/2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/preview.ejs:64
+    62|       <div>Preview Mode</div>
+    63|       <button
+ >> 64|         onclick="window.location.href='/cart?articleId=<%= article.id %>'"
+    65|       >
+    66|         Buy Template
+    67|       </button>
+
+article is not defined
+2025-07-12T04:42:12.898Z [ERROR]: GET /preview/2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/preview.ejs:64
+    62|       <!-- <div>Preview Mode</div> -->
+    63|       <button
+ >> 64|         onclick="window.location.href='/cart?articleId=<%= article.id %>'"
+    65|       >
+    66|         Buy Template
+    67|       </button>
+
+article is not defined
+2025-07-12T04:43:08.578Z [INFO]: Server running on http://localhost:5001
+2025-07-12T04:43:10.841Z [ERROR]: GET /preview/2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/preview.ejs:72
+    70|     <!-- <div style="position: relative; width: 100%; height: 100%">
+    71|       <iframe
+ >> 72|         src="/preview/<%= template.id %>/<%= template.zipPath %>/index.html"
+    73|         id="myIframe"
+    74|         style="width: 100%; height: 100%; border: none"
+    75|       ></iframe>
+
+template is not defined
+2025-07-12T04:43:11.845Z [ERROR]: GET /preview/2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/preview.ejs:72
+    70|     <!-- <div style="position: relative; width: 100%; height: 100%">
+    71|       <iframe
+ >> 72|         src="/preview/<%= template.id %>/<%= template.zipPath %>/index.html"
+    73|         id="myIframe"
+    74|         style="width: 100%; height: 100%; border: none"
+    75|       ></iframe>
+
+template is not defined
+2025-07-12T04:45:55.491Z [ERROR]: GET / - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/index.ejs:121
+    119|           <h6>KSh ${template.cost}</h6>
+    120|           <button
+ >> 121|         onclick="window.location.href='/cart?articleId=<%= template.id %>'"
+    122|       >
+    123|         Buy Template
+    124|       </button>
+
+template is not defined
+2025-07-12T04:45:57.490Z [ERROR]: GET / - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/index.ejs:121
+    119|           <h6>KSh ${template.cost}</h6>
+    120|           <button
+ >> 121|         onclick="window.location.href='/cart?articleId=<%= template.id %>'"
+    122|       >
+    123|         Buy Template
+    124|       </button>
+
+template is not defined
+2025-07-12T05:17:38.255Z [ERROR]: GET /cart?articleId=2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/cart.ejs:1
+ >> 1| <%- include('layout', { title: 'Cart', body: `
+    2| <!-- Hero Start -->
+    3| <div class="container-fluid bg-primary py-5 hero-header mb-5">
+    4|   <div class="container mt-5">
+
+article is not defined
+2025-07-12T05:17:50.403Z [ERROR]: GET /cart?articleId=2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/cart.ejs:1
+ >> 1| <%- include('layout', { title: 'Cart', body: `
+    2| <!-- Hero Start -->
+    3| <div class="container-fluid bg-primary py-5 hero-header mb-5">
+    4|   <div class="container mt-5">
+
+article is not defined
+2025-07-12T05:18:00.130Z [ERROR]: GET /cart?articleId=2 - /Users/collinskandie/Development/Syknown/troycity/troyarticles/views/cart.ejs:1
+ >> 1| <%- include('layout', { title: 'Cart', body: `
+    2| <!-- Hero Start -->
+    3| <div class="container-fluid bg-primary py-5 hero-header mb-5">
+    4|   <div class="container mt-5">
+
+article is not defined
+2025-07-12T05:19:54.804Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:19:59.526Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:20:03.607Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:20:08.558Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:20:14.725Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:27:59.759Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:28:53.935Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:28:55.927Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:29:27.980Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:29:32.492Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:29:44.002Z [INFO]: Server running on http://localhost:5001
+2025-07-12T05:29:47.013Z [INFO]: Server running on http://localhost:5001
