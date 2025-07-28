@@ -4,14 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true, // required if you're using SET NULL
       references: {
-        model: "Templates",
+        model: "Articles",
         key: "id",
       },
       onDelete: "SET NULL", // or "CASCADE"
-    },
-    hostingId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
     },
     invoiceId: {
       type: DataTypes.STRING,

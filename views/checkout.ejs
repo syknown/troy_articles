@@ -13,7 +13,7 @@
         <div class="card shadow p-4 mb-4">
           <h3 class="mb-3">Order Summary</h3>
           <div id="articleDetails" class="mb-3"></div>
-          <!-- <div id="hostingDetails" class="mb-3"></div> -->
+          <div id="articleId" class="mb-3"></div>
           <h5 class="text-end">
             Total:
             <span id="totalPrice" class="text-primary fw-bold">KES 0</span>
@@ -29,10 +29,10 @@
             method="POST"
             onsubmit="return setTotalPriceBeforeSubmit()"
           >
-            <input type="hidden" name="templateId" id="templateIdInput" />
-            <input type="hidden" name="hostingId" id="hostingIdInput" />
+            <input type="hidden" name="articleId" id="articleIdInput" />
+            
             <input type="hidden" name="totalPrice" id="totalPriceInput" />
-            <input type="hidden" name="selectedPlan" id="hostingIdInputJson" />
+
 
             <div class="mb-3">
               <label for="fullName" style="color: black" class="form-label"
@@ -104,6 +104,7 @@
          const articlePrice = parseFloat(
            localStorage.getItem("articlePrice") || 0
          );
+         console.log(articleId, articleName, articlePrice);
     try {
            const res = await fetch(`/api/article/${articleId}`);
            <!-- console.log(res.body); -->
@@ -136,6 +137,9 @@
        function setTotalPriceBeforeSubmit() {
          const totalPriceElement = document.getElementById("totalPrice");
          const totalPrice = totalPriceElement.textContent.replace("KES", "").trim();
+         const articleId = localStorage.getItem("selectedArticle");
+         console.log("Article ID:", articleId);
+         console.log("Total Price:", totalPrice);
 
 
          document.getElementById("totalPriceInput").value = totalPrice;

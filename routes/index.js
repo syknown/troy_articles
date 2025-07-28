@@ -127,16 +127,8 @@ router.get("/checkout", async (req, res) => {
 
 router.post("/complete-purchase", async (req, res) => {
   try {
-    const {
-      articleId,
-      hostingId,
-      fullName,
-      // selectedPlan,
-      email,
-      phone,
-      totalPrice,
-      paymentMethod,
-    } = req.body;
+    const { articleId, fullName, email, phone, totalPrice, paymentMethod } =
+      req.body;
 
     console.log("Request body:", req.body);
 
@@ -144,7 +136,6 @@ router.post("/complete-purchase", async (req, res) => {
 
     const order = await Order.create({
       articleId,
-      hostingId: hostingId || null,
       invoiceId,
       fullName,
       email,
@@ -155,40 +146,21 @@ router.post("/complete-purchase", async (req, res) => {
       orderStatus: "pending",
       orderDate: new Date(),
     });
-    const selectedPlanRaw = req.body.selectedPlan;
-    let selectedPlan = {};
-    let planPrice = 0;
-    let items = [];
-
-    if (selectedPlanRaw) {
-      selectedPlan = JSON.parse(selectedPlanRaw);
-      planPrice = parseFloat(selectedPlan.price);
-      items.push({
-        description: selectedPlan.name,
-        amount: planPrice,
-      });
-      //add domain plans cost
-      if (hostingId) {
-        items.push({
-          description: "Domain free " + order.domainName,
-          amount: 0,
-        });
-      }
-    }
-    // find template details by id
-    const template = await Article.findByPk(articleId);
-    if (!template) {
+   
+    // find article details by id
+    const article = await Article.findByPk(articleId);
+    if (!article) {
       return res.status(404).send("Article not found.");
     }
     // add tenplate cost to items
     items.push({
       description:
-        template.name +
+        article.name +
         " - " +
-        template.category +
+        article.category +
         " - " +
-        template.description,
-      amount: parseFloat(template.cost),
+        article.description,
+      amount: parseFloat(article.cost),
     });
 
     const invoiceData = {
@@ -208,7 +180,7 @@ router.post("/complete-purchase", async (req, res) => {
 
     // send invoice via mail
     generateInvoice(invoiceData);
-
+    
     // create invoice and send email to user
     res.render("complete-order", { order: order });
 
