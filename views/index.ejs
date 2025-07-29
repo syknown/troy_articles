@@ -34,23 +34,42 @@
           <div class="col-md-3">
             <select class="form-control" name="category" class="form-control">
               <option value="">Select a category</option>
-              <option value="AGENCY">AGENCY</option>
-              <option value="BEAUTY & HAIR">BEAUTY & HAIR</option>
-              <option value="BUSINESS">BUSINESS</option>
-              <option value="CORPORATE">CORPORATE</option>
-              <option value="ECOMMERCE">ECOMMERCE</option>
-              <option value="EDUCATION">EDUCATION</option>
-              <option value="INDUSTRIAL">INDUSTRIAL</option>
-              <option value="MAINTENANCE & SERVICE">
-                MAINTENANCE & SERVICE
+              <option value="HEALTH & WELLNESS">Health & Wellness</option>
+              <option value="FINANCE & INVESTMENT">Finance & Investment</option>
+              <option value="TECHNOLOGY & GADGETS">Technology & Gadgets</option>
+              <option value="BUSINESS & ENTREPRENEURSHIP">
+                Business & Entrepreneurship
               </option>
-              <option value="MEDICAL & HOSPITAL">MEDICAL & HOSPITAL</option>
-              <option value="NEWS & MAGAZINE">NEWS & MAGAZINE</option>
-              <option value="NONPROFIT">NONPROFIT</option>
-              <option value="PERSONAL">PERSONAL</option>
-              <option value="RESTAURANT & FOOD">RESTAURANT & FOOD</option>
-              <option value="TRAVEL & TOURISM">TRAVEL & TOURISM</option>
-              <option value="WEDDING">WEDDING</option>
+              <option value="SELF-IMPROVEMENT & PRODUCTIVITY">
+                Self-Improvement & Productivity
+              </option>
+              <option value="CAREER & JOB SEARCH">Career & Job Search</option>
+              <option value="EDUCATION & LEARNING">Education & Learning</option>
+              <option value="TRAVEL & CULTURE">Travel & Culture</option>
+              <option value="RELATIONSHIPS & FAMILY">
+                Relationships & Family
+              </option>
+              <option value="LIFESTYLE & FASHION">Lifestyle & Fashion</option>
+              <option value="NONPROFITS">Nonprofits</option>
+              <option value="POLITICS AND ELECTIONS">
+                Politics And Elections
+              </option>
+              <option value="SEX LIFE">Sex Life</option>
+              <option value="FOOD AND NUTRITION">Food and Nutrition</option>
+              <option value="MOTHER, BABY AND PARENTING">
+                Mother, Baby And Parenting
+              </option>
+              <option value="LAW AND GOVERNANCE">Law and Governance</option>
+              <option value="OPINION AND EDITORIAL">
+                Opinion and Editorial
+              </option>
+              <option value="BUSINESS PLANNING AND BUDGETING">
+                Business Planning and Budgeting
+              </option>
+              <option value="AGRIBUSINESS & VALUE ADDITION">
+                Agribusiness & Value Addition
+              </option>
+              <option value="SMART FARMING">Smart Farming</option>
             </select>
             <!-- <input
               type="text"
@@ -81,8 +100,7 @@
   ` }) %>
 </div>
 <!-- Inject template data -->
-<script>
-</script>
+<script></script>
 <script>
   const articles = <%- JSON.stringify(articles).replace(/</g, '\\u003c') %>;
   console.log(articles);
@@ -154,6 +172,3 @@
 
   paginateTemplates(currentPage);
 </script>
-
-
-
