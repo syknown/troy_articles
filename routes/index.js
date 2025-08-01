@@ -146,23 +146,19 @@ router.post("/complete-purchase", async (req, res) => {
       orderStatus: "pending",
       orderDate: new Date(),
     });
-   
+
     // find article details by id
     const article = await Article.findByPk(articleId);
     if (!article) {
       return res.status(404).send("Article not found.");
     }
     // add tenplate cost to items
-    items.push({
-      description:
-        article.name +
-        " - " +
-        article.category +
-        " - " +
-        article.description,
-      amount: parseFloat(article.cost),
-    });
-
+    const items = [
+      {
+        description: `${article.name} - ${article.category} - ${article.description}`,
+        amount: parseFloat(article.cost),
+      },
+    ];
     const invoiceData = {
       invoiceId: invoiceId,
       invoiceDate: order.orderDate,
@@ -180,7 +176,7 @@ router.post("/complete-purchase", async (req, res) => {
 
     // send invoice via mail
     generateInvoice(invoiceData);
-    
+
     // create invoice and send email to user
     res.render("complete-order", { order: order });
 
