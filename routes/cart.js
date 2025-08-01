@@ -5,21 +5,19 @@ const { Article } = require("../models");
 
 // Route to get the cart page
 router.get("/", async (req, res) => {
-  console.log("Cart page accessed");
-  const { articleId } = req.query; // Get template ID from URL query
-  console.log("Article ID: ", articleId);
+  const { articleId } = req.query; // Get article ID from URL query
 
   if (!articleId) {
     return res.status(400).send("No Article ID provided.");
   }
 
-  // Fetch the template details from the database
+  // Fetch the article details from the database
   const article = await Article.findByPk(articleId);
   if (!article) {
     return res.status(404).send("Article not found.");
   }
 
-  // Render cart page with template details
+  // Render cart page with article details
   res.render("cart", {
     article,
     hostingPlans: [

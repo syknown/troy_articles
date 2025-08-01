@@ -137,8 +137,7 @@ router.post("/edit/:id", async (req, res) => {
   try {
     const { name, description, category, cost } = req.body;
     const { id } = req.params;
-    console.log("Editing Article with ID:", id);
-    console.log("New data:", { name, description, category, cost });
+   
 
     const article = await Article.findByPk(id);
     if (!article) {

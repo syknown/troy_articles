@@ -64,7 +64,6 @@ app.use("/articles", artilclesRoutes);
 app.use((req, res) => {
   res.status(404).render("404", { message: "Page not found" });
 });
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

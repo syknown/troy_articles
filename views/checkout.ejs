@@ -30,9 +30,8 @@
             onsubmit="return setTotalPriceBeforeSubmit()"
           >
             <input type="hidden" name="articleId" id="articleIdInput" />
-            
-            <input type="hidden" name="totalPrice" id="totalPriceInput" />
 
+            <input type="hidden" name="totalPrice" id="totalPriceInput" />
 
             <div class="mb-3">
               <label for="fullName" style="color: black" class="form-label"
@@ -133,7 +132,6 @@
            alert("Failed to load template details.");
          }
        });
-
        function setTotalPriceBeforeSubmit() {
          const totalPriceElement = document.getElementById("totalPrice");
          const totalPrice = totalPriceElement.textContent.replace("KES", "").trim();

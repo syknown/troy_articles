@@ -1,9 +1,9 @@
 {
-  "name": "template-selling",
-  "version": "1.0.0",
+  "name": "articles-selling",
+  "version": "2.0.0",
   "private": true,
   "main": "app.js",
-  "description": "Template selling application",
+  "description": "Articles selling application",
   "author": "Collins Kandie",
   "scripts": {
     "start": "nodemon app.js",

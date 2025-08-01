@@ -10,13 +10,12 @@ const { generateInvoice } = require("../controllers/main");
 const { newMpesa } = require("../controllers/payment");
 const fs = require("fs");
 
-const EMAIL_HOST = "mail.troycityafrica.com";
-const EMAIL_PORT = 465;
-const EMAIL_USER = "troyhost@troycityafrica.com";
-const EMAIL_PASS = "!9OFkB)KH(9S";
-const EMAIL_SECURE = true; // true for 465, false for other ports
+const EMAIL_HOST = process.env.EMAIL_HOST;
+const EMAIL_PORT = process.env.EMAIL_PORT;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+const EMAIL_SECURE = process.env.EMAIL_SECURE; // true for 465, false for other ports
 // const EMAIL_FROM = "troyhost@troycityafrica.com";
-
 transporter = nodemailer.createTransport({
   host: EMAIL_HOST,
   port: EMAIL_PORT,
