@@ -125,35 +125,8 @@ router.post(
         zipPath: zipFolderName, // Save the path of the zip file
       });
 
-      // Optionally, unzip the file if it's a zip file
-      //   if (file.mimetype === "application/zip") {
-      if (zipExt === ".zip") {
-        const extractPath = path.join(
-          __dirname,
-          "..",
-          "public",
-          "themes",
-          String(newArticle.id)
-        );
-        fs.mkdirSync(extractPath, { recursive: true });
-
-        const stream = fs
-          .createReadStream(zipDestPath)
-          .pipe(unzipper.Extract({ path: extractPath }));
-
-        stream.on("close", () => {
-          console.log("Extraction complete");
-          res.render("upload-theme", {
-            title: "Upload Theme",
-            message: "Theme uploaded successfully!", // or null
-          });
-        });
-
-        stream.on("error", (err) => {
-          console.error("Error during extraction: ", err);
-          res.status(500).send("Error extracting theme.");
-        });
-      }
+      console.log("New Article Created: ", newArticle);
+      res.status(201).redirect("/articles/admin/list");
     } catch (err) {
       console.error("Error uploading theme: ", err);
       res.status(500).send("Error uploading theme. Please try again.");
@@ -162,16 +135,18 @@ router.post(
 );
 router.post("/edit/:id", async (req, res) => {
   try {
-    const { name, description,  category, cost } = req.body;
+    const { name, description, category, cost } = req.body;
     const { id } = req.params;
+    console.log("Editing Article with ID:", id);
+    console.log("New data:", { name, description, category, cost });
 
-    const Article = await Article.findByPk(id);
-    if (!Article) {
+    const article = await Article.findByPk(id);
+    if (!article) {
       return res.status(404).send("Article not found");
     }
 
     // Update the Article in the database
-    await Article.update(
+    await article.update(
       { name, description, category, cost },
       { where: { id } }
     );
@@ -184,15 +159,16 @@ router.post("/edit/:id", async (req, res) => {
 router.post("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("Deleting Article with ID:", id);
 
-    // Find the Article by ID
-    const Article = await Article.findByPk(id);
-    if (!Article) {
+    // Avoid shadowing the model
+    const article = await Article.findByPk(id);
+    if (!article) {
       return res.status(404).send("Article not found");
     }
 
-    // Delete the Article from the database
-    await Article.destroy({ where: { id } });
+    // Delete using the instance method
+    await article.destroy();
 
     res.redirect("/Articles/admin/list");
   } catch (error) {
