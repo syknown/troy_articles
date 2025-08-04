@@ -8,6 +8,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "migrate": "sequelize db:migrate",
+    "initialize": "npm run install && npm run migrate",
     "files": "node ./migrate.js"
   },
   "dependencies": {
