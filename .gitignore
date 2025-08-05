@@ -1,11 +1,9 @@
 public/themes/*
 uploads/themes/*
 uploads/thumbnails/*
-data/*
-data/invoices/*
 .env
 node_modules/*
 temp_zips/*
-public/uploads/*
+
 node_modules.zip
 logs/*
